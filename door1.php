@@ -1,6 +1,7 @@
 <?php
 session_start();
-$HASHED_PASSWORD = '$2a$12$cyjwsFThU3M6nHjfcn6Jb.d0u93Ov6pqxB7AbUeG4HdjsFULrbITG';
+
+$password = '$2a$12$cyjwsFThU3M6nHjfcn6Jb.d0u93Ov6pqxB7AbUeG4HdjsFULrbITG';
 
 function login_shell()
 {
