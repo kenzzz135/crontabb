@@ -1,24 +1,9 @@
 <?php
 session_start();
-
-// Hash yang didapat dari bcrypt-generator.com
-$hashed_password = '$2a$12$cyjwsFThU3M6nHjfcn6Jb.d0u93Ov6pqxB7AbUeG4HdjsFULrbITG';
+$HASHED_PASSWORD = '$2a$12$cyjwsFThU3M6nHjfcn6Jb.d0u93Ov6pqxB7AbUeG4HdjsFULrbITG';
 
 function login_shell()
 {
-    // misalnya ambil dari form POST
-    $input_password = $_POST['password'] ?? '';
-
-    // hash disimpan di variabel global atau di database
-    global $hashed_password;
-
-    if (password_verify($input_password, $hashed_password)) {
-        $_SESSION['login'] = true;
-        echo "Login berhasil!";
-    } else {
-        echo "Password salah!";
-    }
-}
 ?>
 
 <!DOCTYPE html>
